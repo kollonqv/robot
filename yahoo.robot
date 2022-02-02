@@ -9,7 +9,7 @@ Test Teardown    Close Browser
 *** Variables ***
 ${BROWSER}           Chrome
 ${URL}               https://www.yahoo.com/
-${YAHOO TITLE}       Yahoo
+${YAHOO TITLE}       Yahoo | Mail, Weather, Search, Politics, News, Finance, Sports & Videos
 ${SHOPPING TITLE}    Yahoo Shopping - We'll track the prices for you!
 
 

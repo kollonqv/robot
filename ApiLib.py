@@ -1,11 +1,11 @@
 import requests
 
-API_ADDRESS = "https://restful-booker.herokuapp.com/booking"
+API_ADDRESS = "https://restful-booker.herokuapp.com"
 
 def get_all_bookings():
-    response = requests.get(API_ADDRESS)
-    return response.json()
+    ret = requests.get(API_ADDRESS + "/booking")
+    return ret.json()
 
-
-if __name__ == "__main__":
-    print(get_all_bookings().json())
+def api_is_up():
+    ret = requests.get(API_ADDRESS)
+    return ret.status_code
