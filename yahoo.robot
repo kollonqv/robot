@@ -1,57 +1,62 @@
 *** Settings ***
-Documentation     Navigate to Yahoo and log product information
-Library           SeleniumLibrary
-Library           String
-Library           Collections
+Documentation       Navigate to Yahoo Shopping and take screenshots of of all the discounts over 70 percent off
 
-Test Teardown    Close Browser
+Library             SeleniumLibrary
+Library             String
+Library             Collections
+Library             resources/element.py
+Variables           resources/locators.py
+Variables           resources/text.py
+Resource            resources/common_resources.robot
 
-*** Variables ***
-${BROWSER}           Chrome
-${URL}               https://www.yahoo.com/
-${YAHOO TITLE}       Yahoo | Mail, Weather, Search, Politics, News, Finance, Sports & Videos
-${SHOPPING TITLE}    Yahoo Shopping - We'll track the prices for you!
-
+Suite Setup         Run Keywords    Init Browser
+...                 AND             Set Screenshot Directory    ${CURDIR}/screenshots
+Suite Teardown      Close Browser
 
 *** Test Cases ***
-Check Yahoo
-    Given Browser To Yahoo Page Is Opened
+# Does not test anything in itself as there are no assertions.
+# However, will fail if elements are not found etc.
+Get Screenshots Of Deals In Yahoo Shopping
+    Given Yahoo Page Is Open
     When Shopping Is Opened
-    Then Select All Deals Over Thirty Percent Off
-    And Log The List Of Deals
-    And Log The Product Information Of One Item 
-
+    Then Select All Deals Over 70 Percent Off
+    And Take Screenshot Of The Deals
+    And Log Product Information Of The Deals
 
 *** Keywords ***
-Browser To Yahoo Page Is Opened
-    Open Browser                ${URL}    ${BROWSER}
-    Maximize Browser Window
-    Click Button                agree
-    Title Should Be             ${YAHOO TITLE} 
+Yahoo Page Is Open
+    Title Should Be    ${YAHOO_TITLE_TEXT}
 
 Shopping Is Opened
+    Click Link    ${SHOPPING_LOCATOR}
+    Title Should Be    ${SHOPPING_TITLE_TEXT}
 
-    Click Link          xpath=//*[@id="ybar-navigation"]/div/ul/li[8]/a
-    Title Should Be     ${SHOPPING TITLE}
-
-Select All Deals Over Thirty Percent Off
-    Sleep    5
-    @{deals}=    Create List
-    ${elements}   Get WebElements    xpath://p[contains(@class,"promotionTag ellipsis")]
-    FOR     ${el}    IN    @{elements}
-        ${txt}=    Get Text    ${el}
-        ${number as string}=     Get Regexp Matches  ${txt}   \\d+
-        ${number}=  Convert To Integer  @{number as string}
-        Run Keyword If    ${number} >= 30 
-        ...    Append To List   ${deals}    ${el}
+Select All Deals Over ${percentage} Percent Off
+    Wait Until Page Contains Element    ${COUPONS_LOCATOR}    5
+    @{deals}    Create List
+    ${discounts}    Get WebElements    ${COUPONS_LOCATOR}
+    FOR    ${element}    IN    @{discounts}
+        ${txt}    Get Text    ${element}
+        ${number_as_string}    Get Regexp Matches    ${txt}    \\d+
+        ${number}    Convert To Integer    @{number_as_string}
+        IF    ${number} >= ${percentage}
+            Append To List    ${deals}    ${element}
+        END
     END
     Set Test Variable    ${deals}
 
-Log The List Of Deals
-    Log     ${deals}
+Take Screenshot Of The Deals
+    FOR    ${deal}    IN    @{deals}
+        Log    ${deal}
+        ${coupon}    Get Element In Relation To Element With Xpath    ${deal}    ../..
+        Capture Element Screenshot    ${coupon}
+    END
 
-Log The Product Information Of One Item 
-    Click Element    ${deals}[0]
-    Sleep   5
-    ${product information}=   Get Element Attribute	    xpath://div[contains(@class, "CouponItem__Description")]    innerText
-    Log         ${product information}
+Log Product Information Of The Deals
+    FOR    ${deal}    IN    @{deals}
+        Click Element    ${deal}
+        Wait Until Page Contains Element    ${PRODUCT_INFORMATION_LOCATOR}    5
+        ${productin_formation}    Get Element Attribute    ${PRODUCT_INFORMATION_LOCATOR}    innerText
+        Log    ${product information}
+        Click Element    ${PRODUCT_INFROMATION_CLOSE_BUTTON_LOCATOR}
+    END
