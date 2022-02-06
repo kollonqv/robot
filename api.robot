@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Get booking information from a test API
-Library           ApiLib.py
+Library           resources/api_lib.py
 
 *** Test Cases ***
 Log All Bookings
