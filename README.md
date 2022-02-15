@@ -1,6 +1,6 @@
 # Introduction
 
-This repository contains example test suites for demonstration purposes.
+This repository contains example test suites for demonstration purposes. The project uses Robot Framework together with custom libraries written in Python.
 Suites utilize Gherkin notation (https://cucumber.io/docs/gherkin/reference/).
 
 ## yahoo.robot suite
