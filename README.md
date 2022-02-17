@@ -1,7 +1,7 @@
 # Introduction
 
 This repository contains example test suites for demonstration purposes. The project uses Robot Framework together with custom libraries written in Python.
-Suites utilize Gherkin notation (https://cucumber.io/docs/gherkin/reference/).
+Suites utilize Gherkin notation (https://cucumber.io/docs/gherkin/reference/). Gherkin makes the business logic apparent in the test case level and forces to write understandable tests. Anyone, even with no technical understanding of robot framework or testing, should be able to understand what is being tested and what are the logical steps to be able to assert if something works as intended or not.
 
 ## yahoo.robot suite
 
