@@ -35,3 +35,14 @@ To get out of the python virtual environment, run:
 ```sh
 deactivate
 ```
+
+## Running in Docker
+There are two compose files, one for each suite. They use the same image that has all the required tools for running the tests.
+Run api tests with docker compose:
+```sh
+docker compose -f .\Docker\docker-compose-api.yml up --build
+```
+Run front-end tests with docker compose:
+```sh
+docker compose -f .\Docker\docker-compose-selenium.yml up --build
+```
