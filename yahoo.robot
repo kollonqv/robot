@@ -58,5 +58,6 @@ Log Product Information Of The Deals
         Wait Until Page Contains Element    ${PRODUCT_INFORMATION_LOCATOR}    5
         ${productin_formation}    Get Element Attribute    ${PRODUCT_INFORMATION_LOCATOR}    innerText
         Log    ${product information}
+        Wait Until Page Contains Element    ${PRODUCT_INFROMATION_CLOSE_BUTTON_LOCATOR}    5
         Click Element    ${PRODUCT_INFROMATION_CLOSE_BUTTON_LOCATOR}
     END
