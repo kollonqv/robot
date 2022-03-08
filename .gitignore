@@ -4,3 +4,6 @@ output.xml
 report.html
 __pycache__/
 screenshots/
+.cache/
+.config/
+.local/

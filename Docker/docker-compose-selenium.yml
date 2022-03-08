@@ -1,9 +1,11 @@
 version: '3'
 services:
   app:
-    build: .
+    build:
+      context: .
+      shm_size: 1g
     ports:
       - "8081:8080"
     volumes:
       - ../:/home/tester
-    command: bash -c "robot ./yahoo.robot"
+    # command: /bin/sh -c "xvfb-run --server-args="-screen 0 ${SCREEN_WIDTH}x${SCREEN_HEIGHT}x${SCREEN_COLOUR_DEPTH} -ac" robot /home/tester"
