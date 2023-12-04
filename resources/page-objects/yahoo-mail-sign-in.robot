@@ -4,7 +4,6 @@ Library    SeleniumLibrary
 *** Variables ***
 # Locators
 ${mail title}    //*[@class="challenge-heading"]
-${sign in button}    //*[@class="fuji-button-link fuji-button-inverted signin"]
 
 # Text Values
 ${mail title text}    Sign in to Yahoo Mail

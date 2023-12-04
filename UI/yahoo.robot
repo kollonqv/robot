@@ -6,7 +6,8 @@ Library             String
 Library             Collections
 Resource            ../resources/common_resources.robot
 Resource            ../resources/page-objects/yahoo-main.robot
-Resource            ../resources/page-objects/yahoo-mail.robot
+Resource            ../resources/page-objects/yahoo-mail-sign-in.robot
+Resource            ../resources/page-objects/yahoo-mail-landing.robot
 
 Suite Setup         Run Keywords    Init Browser
 ...                 AND             Set Screenshot Directory    ${CURDIR}/screenshots
