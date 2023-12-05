@@ -6,7 +6,6 @@ Suites utilize Gherkin notation (https://cucumber.io/docs/gherkin/reference/). G
 ## yahoo.robot suite
 
 Demonstrates web application testing  utilizing SeleniumLibrary.
-Expects chromedriver.exe in the project root.
 
 ## api.robot suite
 
@@ -27,11 +26,50 @@ virtualenv venv; .\venv\Scripts\activate; pip install -r requirements.txt
 ```
 To run the suites, run:
 ```sh
-robot .\yahoo.robot
-# or
-robot .\api.robot
+robot .\UI\yahoo.robot
+# or python api tests
+robot .\API\apiPyRequests.robot
+# or RF RESTinstance api tests
+robot .\API\apiRESTinstance.robot
 ```
 To get out of the python virtual environment, run:
 ```sh
 deactivate
 ```
+
+
+
+## Podman
+Troubleshooting:
+Powershell as admin: 
+```sh
+restart-service "Hyper-V Host Compute Service"
+```
+```sh
+wsl --unregister podman-machine-default
+```
+PowerShell ADMIN:
+
+only once
+```sh
+podman machine init
+podman machine set --rootful
+```
+```sh
+podman machine start
+```
+To build the container, run (non elevated PowerShell)
+```sh
+podman build -f .\container\Containerfile .
+```
+To run with container:
+```sh
+podman run afea9eb12d299ff4cea4d4dff39cebb27939be370028463fb9580190a74aa5bb
+```
+```sh
+podman machine stop
+```
+
+To remove on wsl side:
+wsl -l 
+wsl --unregister <DistroName>

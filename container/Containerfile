@@ -1,0 +1,15 @@
+FROM ubuntu:22.04
+
+ARG DEBIAN_FRONTEND=noninteractive
+ENV TZ=Canada/Pacific
+COPY ../ robot
+WORKDIR /robot
+
+RUN apt-get update
+RUN apt-get install software-properties-common -y
+RUN add-apt-repository ppa:deadsnakes/ppa -y
+RUN apt install python3.11 -y
+RUN apt install python3-pip -y
+RUN ls -la
+RUN pip install -r requirements.txt
+CMD [ "robot", "API/apiRESTinstance.robot" ]
