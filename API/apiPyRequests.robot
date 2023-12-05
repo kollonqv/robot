@@ -1,15 +1,15 @@
 *** Settings ***
-Documentation     Tests an API for demonstration purposes
+Documentation     Tests an API for demonstration purposes, uses python functions
 
 Library           Collections
-Library           resources/RequireTest.py
-Library           resources/ApiLib.py
+Library           ../resources/RequireTest.py
+Library           ../resources/ApiLib.py
 
 *** Variables ***
 ${booking}              {"firstname" : "Jim", "lastname" : "Brown", "totalprice" : 111, "depositpaid" : true, "bookingdates" : 
 ...                     {"checkin" : "2018-01-01", "checkout" : "2019-01-01"}, "additionalneeds" : "Breakfast"}
 ${booking_updated}      {"firstname" : "Peter", "lastname" : "Pan", "totalprice" : 222, "depositpaid" : false, "bookingdates" : 
-...                     {"checkin" : "2018-02-02", "checkout" : "2019-02-02"}, "additionalneeds" : "Lunch"}
+...                     {"checkin" : "2018-02-02", "checkout" : "2019-02-02"}, "additionalneeds" : "Lunch"}                
 
 *** Test Cases ***
 Log All Bookings
@@ -27,13 +27,13 @@ Update Booking
     Then Previously Created Booking Can Be Updated
 
 *** Keywords ***
-Log Bookings
-    ${bookings}   Get All Bookings
-    Log     ${bookings}
-
 Api Is Available
     ${return_code}  Api Is Up
     Should Be Equal As Strings   "${return_code}"    "200"        "Api not available"
+
+Log Bookings
+    ${bookings}   Get All Bookings
+    Log     ${bookings}
 
 Booking Is Created
     ${return_code}    ${booking_id}    Create Booking    ${booking}
