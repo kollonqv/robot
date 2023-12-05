@@ -84,6 +84,8 @@ Booking Is Not Found
     ${response}    Output
     Should Be Equal    ${response}[response][body]    Not Found    "Booking with id ${booking_id} was found"
     Set Suite Variable    ${booking_id}
+
+    
 # Helpers
 Set Auth Header
     ${token}    Authenticate
