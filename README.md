@@ -27,9 +27,11 @@ virtualenv venv; .\venv\Scripts\activate; pip install -r requirements.txt
 ```
 To run the suites, run:
 ```sh
-robot .\yahoo.robot
-# or
-robot .\api.robot
+robot .\UI\yahoo.robot
+# or python api tests
+robot .\API\apiPyRequests.robot
+# or RF RESTinstance api tests
+robot .\API\apiRESTinstance.robot
 ```
 To get out of the python virtual environment, run:
 ```sh
